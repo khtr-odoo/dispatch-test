@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='scheduled_date']" position="after">
+            <field name="dock_id"/>
+             <field name="vehicle_id" />
+             <field name="vehicle_category_id" />
+             <field name="weight" widget="progressbar" invisible="vehicle_category_id == False" />
+             <field name="volume" widget="progressbar" invisible="vehicle_category_id == False" />
+            </xpath> 
+        </field>
+    </record>
+
+    <record id="stock_picking_batch_graph" model="ir.ui.view">
+        <field name="name">stock.picking.batch.graph</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <graph string="Batch Transfer">
+                <field name="scheduled_date" />
+                <field name="vehicle_category_id" />
+                <field name="weight" />
+                <field name="volume" />
+                <!-- <field name="transfers_number "/>
+                <field name="moves_number"/> -->
+            </graph>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,form,kanban,graph</field>
+    </record>
+    
+    
+    <!-- <record id="stock_picking_batch_view_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.batch.gantt</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <gantt
+            date_stop="scheduled_date"
+            date_start="scheduled_date"
+            string="Batch Picking Transfer Gantt Chart"
+            color="id"
+            default_scale="week"
+            scales="day,week,month,year"
+            decoration-info="state == 'draft'"
+            default_group_by="dock,vehicle_id">
+            <field name="state" />
+            <field name="vehicle_id" />
+            </gantt>
+        </field>
+    </record> -->
+
+</odoo> 
