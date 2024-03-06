@@ -8,6 +8,6 @@ class FleetVehicleModelCategory(models.Model):
 
     def _compute_display_name(self):
         for record in self:
-            name = f"{record.name} ({record.max_weight}Kg,{record.max_volume})"
+            name = "{} ({:.2f}kg, {:.2f})".format(record.name,record.max_weight, record.max_volume)
             record.display_name = name
 

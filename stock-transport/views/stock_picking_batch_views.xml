@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="stock_picking_batch_form" model="ir.ui.view">
-        <field name="name">stock.picking.batch.form</field>
+        <field name="name">stock.picking.batch.form.inherit.stock.transport</field>
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
         <field name="arch" type="xml">
@@ -16,7 +16,7 @@
     </record>
 
     <record id="stock_picking_batch_graph" model="ir.ui.view">
-        <field name="name">stock.picking.batch.graph</field>
+        <field name="name">stock.picking.batch.graph.inherit.stock.transport</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
             <graph string="Batch Transfer">
@@ -31,27 +31,30 @@
     </record>
 
     <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
-        <field name="view_mode">tree,form,kanban,graph</field>
+        <field name="view_mode">tree,form,kanban,graph,gantt</field>
+        <field name="context">{
+            'graph_groupbys': ['scheduled_date:day', 'vehicle_category_id'],    
+        }</field>
     </record>
     
     
-    <!-- <record id="stock_picking_batch_view_gantt" model="ir.ui.view">
-        <field name="name">stock.picking.batch.gantt</field>
+    <record id="stock_picking_batch_view_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.batch.gantt.inherit.stock.transport</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
             <gantt
-            date_stop="scheduled_date"
             date_start="scheduled_date"
-            string="Batch Picking Transfer Gantt Chart"
-            color="id"
+            date_stop="scheduled_date"
             default_scale="week"
             scales="day,week,month,year"
+            string="Batch Picking Transfer Gantt Chart"
+            color="id"
             decoration-info="state == 'draft'"
-            default_group_by="dock,vehicle_id">
+            default_group_by="dock_id,vehicle_id">
             <field name="state" />
             <field name="vehicle_id" />
             </gantt>
         </field>
-    </record> -->
+    </record>
 
 </odoo> 
