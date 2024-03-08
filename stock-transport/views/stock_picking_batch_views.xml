@@ -9,11 +9,20 @@
             <field name="dock_id"/>
              <field name="vehicle_id" />
              <field name="vehicle_category_id" />
-             <field name="weight" widget="progressbar" invisible="vehicle_category_id == False" />
-             <field name="volume" widget="progressbar" invisible="vehicle_category_id == False" />
+             <label for="weight"/>
+                <div class="o_row w-100" name="weight">
+                    <field name="total_weight"/>
+                    <field name="weight" widget="progressbar" class="oe_inline"/>
+                </div>
+                <label for="volume"/>
+                <div class="o_row w-100" name="volume">
+                    <field name="total_volume"/>
+                    <field name="volume" widget="progressbar" class="oe_inline"/>
+                </div>    
             </xpath> 
         </field>
     </record>
+
 
     <record id="stock_picking_batch_graph" model="ir.ui.view">
         <field name="name">stock.picking.batch.graph.inherit.stock.transport</field>
@@ -24,17 +33,12 @@
                 <field name="vehicle_category_id" />
                 <field name="weight" />
                 <field name="volume" />
-                <!-- <field name="transfers_number "/>
-                <field name="moves_number"/> -->
             </graph>
         </field>
     </record>
 
     <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
         <field name="view_mode">tree,form,kanban,graph,gantt</field>
-        <field name="context">{
-            'graph_groupbys': ['scheduled_date:day', 'vehicle_category_id'],    
-        }</field>
     </record>
     
     
@@ -43,7 +47,7 @@
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
             <gantt
-            date_start="scheduled_date"
+            date_start="create_date"
             date_stop="scheduled_date"
             default_scale="week"
             scales="day,week,month,year"
