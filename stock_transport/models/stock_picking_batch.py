@@ -10,8 +10,8 @@ class StockPickingBatch(models.Model):
     weight = fields.Float(string="Weight(kg)", compute="_compute_weight_volume", store=True)
     moves_number = fields.Float(string="Move Lines", compute="_compute_moves_number", store=True)
     transfers_number  = fields.Float(string="Transfer Lines", compute="_compute_moves_number", store=True)
-    total_weight = fields.Float(string="Weight", compute="_compute_weight_volume", store=True)
-    total_volume = fields.Float(string="Volume", compute="_compute_weight_volume", store=True)
+    total_weight = fields.Float(string="Weight", compute="_compute_weight_volume")
+    total_volume = fields.Float(string="Volume", compute="_compute_weight_volume")
 
     @api.depends('picking_ids','vehicle_category_id')
     def _compute_weight_volume(self):
